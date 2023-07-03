@@ -6,9 +6,13 @@ call print_string
 mov bx, GOODBYE_MSG
 call print_string
 
+mov dx, 0x12AB
+call print_hex
+
 jmp $
 
 %include "my_print_function.asm"
+%include "printhex.asm"
 
 HELLO_MSG:
     db 'Hello, World!', 0
