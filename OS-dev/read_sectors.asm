@@ -10,10 +10,11 @@
     mov dl, [BOOT_DRIVE]
     call disk_load
 
-    mov dx, [0x9000]
+    mov dx, [0x9000]            ; print out the first loaded word, which we expect to be 0xdada,
+                                ; stored at address 0x9000
     call print_hex
 
-    mov dx, [0x9000 + 512]
+    mov dx, [0x9000 + 512]      ; also print the first word from the 2nd loaded sector: 0xface
     call print_hex
 
     jmp $
