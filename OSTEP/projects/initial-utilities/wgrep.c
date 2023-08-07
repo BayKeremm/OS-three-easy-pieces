@@ -33,7 +33,7 @@ int main(int argc, char * argv[]){
         for(int i = argc - 1 ; i > 1 ; i--){
             FILE * file = fopen(argv[i],"r");
             if(file == NULL){
-                printf("wcat: cannot open file\n");
+                printf("wgrep: cannot open file\n");
                 exit(1);
             }
             char res = grepFunc(file,s);

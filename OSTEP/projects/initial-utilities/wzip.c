@@ -14,17 +14,16 @@ int zipFunc(FILE * input){
     while (getline(&buffer,&n,input) > -1){
         char counter=1;
         char * ptr1 = buffer;
-        char * ptr2 = ptr1++;
+        char * ptr2 = ptr1+1;
         char * end = buffer + sizeof(buffer);
-        while(ptr2 <= end){
-            if(*ptr1 == *ptr2){
+        while(ptr1 <= end){
+            if(ptr2 <= end &&*ptr1 == *ptr2){
                 counter++;
             }else{
                 char num[4];
                 sprintf(num,"%d",counter);
                 char s[5];
-                char * prev = ptr1-1;
-                sprintf(s,"%s%c",num,*prev);
+                sprintf(s,"%s%c",num,*ptr1);
                 fwrite(s,5,1,stdout);
                 counter = 1;
             }
@@ -45,9 +44,10 @@ int main(int argc, char * argv[]){
     char * fileName = argv[1];
     FILE * file = fopen(fileName,"r");
     if(file == NULL){
-        printf("wcat: cannot open file\n");
+        printf("wzip: cannot open file\n");
         exit(1);
     }
     zipFunc(file);
+    fclose(file);
     return 1;
 }
