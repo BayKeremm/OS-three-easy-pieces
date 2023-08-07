@@ -1,6 +1,5 @@
 #include <stdio.h>
 #include <stdlib.h>
-// For file I/O use the following functions: fopen fgets fclose 
 int catFunc(char * fileName){
     FILE * file = fopen(fileName,"r");
     if(file == NULL){

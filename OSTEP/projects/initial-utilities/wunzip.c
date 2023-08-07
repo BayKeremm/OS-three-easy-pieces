@@ -22,12 +22,11 @@ int unzipFunc(FILE * input){
     return 0;
 }
 int main(int argc, char * argv[]){
-    //if(argc < 2){
-        //perror("Please check the arguements\n");
-        //exit(1);
-    //}
-    //char * fileName = argv[1];
-    char * fileName = "out.z";
+    if(argc < 2){
+        perror("Please check the arguements\n");
+        exit(1);
+    }
+    char * fileName = argv[1];
     FILE * file = fopen(fileName,"r");
     if(file == NULL){
         printf("wunzip: cannot open file\n");

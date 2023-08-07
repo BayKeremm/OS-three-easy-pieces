@@ -53,15 +53,5 @@ int main(int argc, char * argv[]){
             exit(1);
         }
     }
-    //FILE * file = fopen("text.txt","r");
-    //if(file == NULL){
-        //printf("wzip: cannot open file\n");
-        //exit(1);
-    //}
-    //char res = zipFunc(file);
-    //fclose(file);
-    //if(res){
-        //exit(1);
-    //}
     return 1;
 }
