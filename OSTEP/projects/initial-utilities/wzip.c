@@ -3,28 +3,28 @@
 #include "string.h"
 
 int zipFunc(FILE * input){
-    char * buffer;
-    size_t n = 100;
+    size_t n = 1;
+    int bytesRead;
 
-    buffer = (char *) malloc(n * sizeof(char));
+    char * buffer = (char *) malloc(n * sizeof(char));
     if (buffer == NULL){
         printf("Unable to allocate buffer\n");
         return 1;
     }
-    while (getline(&buffer,&n,input) > -1){
+    while ((bytesRead = getline(&buffer,&n,input)) != -1){
         char counter=1;
         char * ptr1 = buffer;
         char * ptr2 = ptr1+1;
-        char * end = buffer + sizeof(buffer);
-        while(ptr1 <= end){
-            if(ptr2 <= end &&*ptr1 == *ptr2){
+        char * end = buffer + bytesRead;
+        while(ptr1 < end){
+            if(ptr2 < end &&*ptr1 == *ptr2){
                 counter++;
             }else{
-                char num[4];
-                sprintf(num,"%d",counter);
-                char s[5];
-                sprintf(s,"%s%c",num,*ptr1);
-                fwrite(s,5,1,stdout);
+                char num[5];
+                snprintf(num, sizeof(num), "%d",counter);
+                char s[6];
+                snprintf(s, sizeof(s), "%s%c",num,*ptr1);
+                fwrite(s,sizeof(s)- 1,1,stdout);
                 counter = 1;
             }
             ptr1++; 
@@ -32,7 +32,6 @@ int zipFunc(FILE * input){
         }
     }
     free(buffer);
-
     return 0;
 }
 
@@ -41,13 +40,28 @@ int main(int argc, char * argv[]){
         perror("Please check the arguements\n");
         exit(1);
     }
-    char * fileName = argv[1];
-    FILE * file = fopen(fileName,"r");
-    if(file == NULL){
-        printf("wzip: cannot open file\n");
-        exit(1);
+
+    for(int i = 1 ; i < argc ; i++){
+        FILE * file = fopen(argv[i],"r");
+        if(file == NULL){
+            printf("wzip: cannot open file\n");
+            exit(1);
+        }
+        char res = zipFunc(file);
+        fclose(file);
+        if(res){
+            exit(1);
+        }
     }
-    zipFunc(file);
-    fclose(file);
+    //FILE * file = fopen("text.txt","r");
+    //if(file == NULL){
+        //printf("wzip: cannot open file\n");
+        //exit(1);
+    //}
+    //char res = zipFunc(file);
+    //fclose(file);
+    //if(res){
+        //exit(1);
+    //}
     return 1;
 }
