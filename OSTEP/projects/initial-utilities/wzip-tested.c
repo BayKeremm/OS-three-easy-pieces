@@ -17,7 +17,7 @@ int zipFunc(FILE * input){
         char * ptr2 = ptr1+1;
         char * end = buffer + bytesRead;
         while(ptr1 < end){
-            if(ptr2 < end &&*ptr1 == *ptr2){
+            if(strncmp(ptr1,ptr2,1)==0){
                 counter++;
             }else{
                 fwrite(&counter,4,1,stdout);
