@@ -2,3 +2,4 @@ OS-dev/*.bin
 OS-dev/chapter5/*.bin
 OS-dev/chapter5/*.o
 OS-dev/learnOS/*.o
+.vscode
